@@ -8,8 +8,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.dm_garg_07.data.db.CrudMascota;
 
+public class MainActivity extends AppCompatActivity {
+    //una instancia - CrudMascota
+
+    CrudMascota crudMascota;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
