@@ -25,7 +25,7 @@ public class Veterinario {
         this.nombre = nombre;
         this.edad = edad;
     }
-
+    //getters and setters
     public Long getId() {
         return id;
     }
