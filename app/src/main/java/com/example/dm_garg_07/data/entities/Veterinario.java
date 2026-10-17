@@ -1,7 +1,8 @@
 package com.example.dm_garg_07.data.entities;
 
-import androidx.room3.Entity;
-import androidx.room3.PrimaryKey;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 @Entity(tableName = "veterinarios")
 public class Veterinario {
@@ -14,18 +15,19 @@ public class Veterinario {
     public Veterinario() {
     }
 
+    @Ignore
     public Veterinario(String nombre, int edad, String cedula) {
         this.nombre = nombre;
         this.edad = edad;
         this.cedula = cedula;
     }
 
+    @Ignore
     public Veterinario(Long id, String nombre, int edad) {
         this.id = id;
         this.nombre = nombre;
         this.edad = edad;
     }
-    //getters and setters
     public Long getId() {
         return id;
     }

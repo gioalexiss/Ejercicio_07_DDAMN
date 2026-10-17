@@ -12,45 +12,46 @@ import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 public class CrudMascota {
-    //Manejar el CRUD
-    //Instanciar la db
-    //Usar hilos para realizar el CRUD
     AppDataBase db;
-    //Son operaciones de lectira y escritura
-    //puede bloquear la pantalla
     ExecutorService executorService =
             Executors.newSingleThreadExecutor();
-    //Para regresar el resultado de las consultas al hilo principal (UI)
     Handler handler = new Handler(Looper.getMainLooper());
 
     public CrudMascota(Context context){
         db = AppDataBase.getInstance(context);
     }
 
-    public void agregar(Mascota mascota){
+    public void agregar(Mascota mascota, Runnable onTerminado){
         executorService.execute(()->{
-            //Mandamos a segundo plano la operacion de IO (Input Output)
             db.mascotaDao().crear(mascota);
+            notificar(onTerminado);
         });
     }
 
-    public void actualizar(Mascota mascota){
+    public void actualizar(Mascota mascota, Runnable onTerminado){
         executorService.execute(()->{
             db.mascotaDao().actualizar(mascota);
+            notificar(onTerminado);
         });
     }
 
-    public void eliminar(Long id){
+    public void eliminar(Long id, Runnable onTerminado){
         executorService.execute(()->{
             db.mascotaDao().eliminar(id);
+            notificar(onTerminado);
         });
     }
 
-    //Las consultas regresan el resultado en un callback
-    //que se ejecuta en el hilo principal
     public void obtenerTodas(Consumer<List<Mascota>> callback){
         executorService.execute(()->{
             List<Mascota> mascotas = db.mascotaDao().obtenerTodos();
+            handler.post(()-> callback.accept(mascotas));
+        });
+    }
+
+    public void obtenerPorUsuario(Long usuarioId, Consumer<List<Mascota>> callback){
+        executorService.execute(()->{
+            List<Mascota> mascotas = db.mascotaDao().obtenerPorUsuario(usuarioId);
             handler.post(()-> callback.accept(mascotas));
         });
     }
@@ -60,5 +61,20 @@ public class CrudMascota {
             Mascota mascota = db.mascotaDao().obtenerPorId(id);
             handler.post(()-> callback.accept(mascota));
         });
+    }
+
+    //Revisa nombres repetidos
+    public void existeDuplicado(Long usuarioId, String nombre, Long excluirId, Consumer<Boolean> callback){
+        executorService.execute(()->{
+            long excluir = excluirId == null ? -1L : excluirId;
+            boolean existe = db.mascotaDao().contarDuplicados(usuarioId, nombre, excluir) > 0;
+            handler.post(()-> callback.accept(existe));
+        });
+    }
+
+    private void notificar(Runnable onTerminado){
+        if (onTerminado != null) {
+            handler.post(onTerminado);
+        }
     }
 }

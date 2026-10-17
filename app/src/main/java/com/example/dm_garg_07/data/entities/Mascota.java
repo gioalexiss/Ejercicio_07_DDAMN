@@ -1,10 +1,19 @@
 package com.example.dm_garg_07.data.entities;
 
-import androidx.room3.ColumnInfo;
-import androidx.room3.Entity;
-import androidx.room3.PrimaryKey;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
-@Entity(tableName = "mascota")
+//Cada mascota pertenece a un usuario
+@Entity(tableName = "mascota",
+        foreignKeys = @ForeignKey(entity = Usuario.class,
+                parentColumns = "id",
+                childColumns = "usuario_id",
+                onDelete = ForeignKey.CASCADE),
+        indices = {@Index(value = {"usuario_id"})})
 public class Mascota {
 
     @PrimaryKey(autoGenerate = true)
@@ -13,31 +22,33 @@ public class Mascota {
     @ColumnInfo(name = "nombre")
     private String nombre;
 
-    @ColumnInfo(name = "especie")
-    private String especie;
-
     @ColumnInfo(name = "raza")
     private String raza;
 
     @ColumnInfo(name = "edad")
     private Integer edad;
 
+    @ColumnInfo(name = "usuario_id")
+    private Long usuarioId;
+
     public Mascota() {
     }
 
-    public Mascota(Long id, String nombre, String especie, String raza, Integer edad) {
+    @Ignore
+    public Mascota(Long id, String nombre, String raza, Integer edad, Long usuarioId) {
         this.id = id;
         this.nombre = nombre;
-        this.especie = especie;
         this.raza = raza;
         this.edad = edad;
+        this.usuarioId = usuarioId;
     }
 
-    public Mascota(String nombre, String especie, String raza, Integer edad) {
+    @Ignore
+    public Mascota(String nombre, String raza, Integer edad, Long usuarioId) {
         this.nombre = nombre;
-        this.especie = especie;
         this.raza = raza;
         this.edad = edad;
+        this.usuarioId = usuarioId;
     }
 
     public Long getId() {
@@ -56,14 +67,6 @@ public class Mascota {
         this.nombre = nombre;
     }
 
-    public String getEspecie() {
-        return especie;
-    }
-
-    public void setEspecie(String especie) {
-        this.especie = especie;
-    }
-
     public String getRaza() {
         return raza;
     }
@@ -79,5 +82,18 @@ public class Mascota {
     public void setEdad(Integer edad) {
         this.edad = edad;
     }
-}
 
+    public Long getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
+    //Texto que se ve en la lista
+    @Override
+    public String toString() {
+        return nombre + "  ·  " + raza + "  ·  " + edad + (edad != null && edad == 1 ? " año" : " años");
+    }
+}

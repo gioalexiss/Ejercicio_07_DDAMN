@@ -40,8 +40,8 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.ext.junit)
 
-    implementation("androidx.room3:room3-runtime:3.0.3")
-    //para anotaciones - @Entity, @Insert...
-    annotationProcessor("androidx.room3:room3-compiler:3.0.3")
-    //ksp()
+    //Room (base de datos)
+    val roomVersion = "2.8.4"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
 }

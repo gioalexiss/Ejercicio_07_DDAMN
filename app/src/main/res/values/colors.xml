@@ -2,4 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Colores IPN -->
+    <color name="ipn_guinda">#FF6C1D45</color>
+    <color name="ipn_guinda_oscuro">#FF4A1230</color>
+    <color name="ipn_guinda_claro">#FFFFD9E7</color>
+    <color name="ipn_gris">#FF5E5E5E</color>
+
+    <!-- Colores para modo oscuro -->
+    <color name="ipn_guinda_noche">#FFF2B3CE</color>
+    <color name="ipn_guinda_noche_contenedor">#FF5A1638</color>
+    <color name="ipn_gris_noche">#FFC6C6C6</color>
 </resources>

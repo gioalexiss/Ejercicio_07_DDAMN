@@ -1,7 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.DM_GARG_07" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Colores para modo oscuro -->
+        <item name="colorPrimary">@color/ipn_guinda_noche</item>
+        <item name="colorOnPrimary">@color/ipn_guinda_oscuro</item>
+        <item name="colorPrimaryContainer">@color/ipn_guinda_noche_contenedor</item>
+        <item name="colorOnPrimaryContainer">@color/ipn_guinda_claro</item>
+        <item name="colorSecondary">@color/ipn_gris_noche</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor">@color/ipn_guinda_oscuro</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 </resources>

@@ -12,13 +12,9 @@ import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 public class CrudVeterinario {
-    //Manejar el CRUD
-    //Instanciar la db
-    //Usar hilos para realizar el CRUD
     AppDataBase db;
     ExecutorService executorService =
             Executors.newSingleThreadExecutor();
-    //Para regresar el resultado de las consultas al hilo principal (UI)
     Handler handler = new Handler(Looper.getMainLooper());
 
     public CrudVeterinario(Context context){
